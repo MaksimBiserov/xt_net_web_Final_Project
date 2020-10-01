@@ -1,0 +1,95 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    Layout = "~/Layouts/_Layout.cshtml";
+    string id = Request.QueryString["ID"];
+    string name = "";
+    double calorific = 0;
+    int netMass = 100;
+    byte[] imageBytes = null;
+    Products category = Products.All;
+    string requestID = "";
+    string imageName = "";
+    IProductBLL productBLL = DependencyResolver.ProductBLL;
+
+    if (!IsPost)
+    {
+        var product = productBLL.GetById(int.Parse(Request.QueryString["ID"]));
+        requestID = product.ID.ToString();
+        name = product.Name;
+        calorific = product.Calorific;
+        netMass = product.NetMass;
+        imageBytes = product.Image;
+        category = product.Category;
+        imageName = product.ImageName;
+    }
+
+    if (IsPost)
+    {
+        requestID = Request.Form["requestID"];
+        name = Request.Form["name"];
+        calorific = Double.Parse(Request.Form["calorific"]);
+        var checkFile = Request.Files[0].FileName;
+
+        if(checkFile != "")
+        {
+            var file = Request.Files[0];
+
+            using (BinaryReader binaryReader = new BinaryReader(file.InputStream))
+            {
+                imageBytes = binaryReader.ReadBytes(file.ContentLength);
+            }
+        }
+
+        category = (Products)Enum.Parse(typeof(Products), Request.Form["category"]);
+        productBLL.Edit(Int32.Parse(requestID), name, calorific, netMass, imageBytes, category, imageName);
+        Response.Redirect("~");
+    }
+}
+
+<form class="crudContainer" action="~/Pages/AdminPages/EditProduct.cshtml" enctype="multipart/form-data" method="post">
+
+    <div>
+        <label class="crudHead">Name of product</label>
+        <div>
+            <input class="crudInput" type="text" name="Name" value=@name required>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Calorific</label>
+        <div>
+            <input class="crudInput" type="text" name="Calorific" value=@calorific required>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Category</label>
+        <div>
+            <select class="crudInput" name="Category" size="1">
+
+                @foreach (var item in Enum.GetNames(typeof(Products)))
+                {
+                    <option value="@category">@item</option>
+                }
+
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Image</label>
+        <div>
+            <input class="crudInput" type="file" name="Image" value="@imageBytes" title="@imageName">
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <input type="hidden" name="requestID" value="@requestID" />
+            <button class="crudButton">Edit</button>
+        </div>
+    </div>
+
+</form>

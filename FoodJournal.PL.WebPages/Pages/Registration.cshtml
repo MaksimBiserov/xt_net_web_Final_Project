@@ -1,0 +1,64 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    Layout = "~/Layouts/_Layout.cshtml";
+    string errorMessage = null;
+    IAccountBLL registrationUser = DependencyResolver.AccountBLL;
+    string login = Request["login"];
+    string password = Request["password"];
+}
+
+@if (errorMessage != null)
+{
+    <div id="modalVisible">
+        @errorMessage
+        <a href="~/Pages/SignIn.cshtml" class="close">Close</a>
+    </div>
+}
+
+@if (IsPost)
+{
+    if (!string.IsNullOrWhiteSpace(login) && !string.IsNullOrWhiteSpace(password))
+    {
+        registrationUser.AddRole(new FoodJournal.Entities.Account
+        {
+            Login = login,
+            Password = password,
+            Role = new string[] { "User" }
+        });
+
+        FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
+        Response.Redirect("~");
+    }
+
+    else
+    {
+        errorMessage = "Enter your registration details";
+    }
+}
+
+<div class="crudContainer">
+    <form action="~/Pages/Registration.cshtml" method="post">
+        <div>
+            <p class="loginHead">Registration</p>
+        </div>
+        <div>
+            <label class="loginHead">Login</label>
+            <div>
+                <input class="loginInput" type="text" id="login" name="login" value=@login required>
+            </div>
+        </div>
+        <div>
+            <label class="loginHead">Password</label>
+            <div>
+                <input class="loginInput" type="password" id="password" name="password" value=@password required>
+            </div>
+        </div>
+        <div>
+            <div>
+                <button class="loginButton">Registration</button>
+            </div>
+        </div>
+    </form>
+</div>

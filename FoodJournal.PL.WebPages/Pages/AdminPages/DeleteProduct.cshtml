@@ -1,0 +1,76 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    Layout = "~/Layouts/_Layout.cshtml";
+    string id = Request.QueryString["ID"];
+    string name = "";
+    double calorific = 0;
+    int netMass = 0;
+    byte[] imageBytes = { };
+    Products category = Products.All;
+    string requestID = "";
+    IProductBLL productBLL = DependencyResolver.ProductBLL;
+
+    if (!IsPost)
+    {
+        foreach (var product in productBLL.GetAll(category).ToList())
+        {
+            if (Request.QueryString["ID"] == product.ID.ToString())
+            {
+                requestID = product.ID.ToString();
+                name = product.Name;
+                calorific = product.Calorific;
+                netMass = product.NetMass;
+                imageBytes = product.Image;
+                category = product.Category;
+            }
+        }
+    }
+
+    if (IsPost && !Request["buttonDelete"].IsEmpty())
+    {
+        requestID = Request.Form["requestID"];
+        productBLL.DeleteById(Int32.Parse(requestID));
+        Response.Redirect("~");
+    }
+}
+
+
+
+<form class="crudContainer" action="~/Pages/AdminPages/DeleteProduct.cshtml" enctype="multipart/form-data" method="post">
+
+    <div>
+        <label class="crudHead">Delete product</label>
+        <div>
+            <div class="crudHead">@name</div>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Calorific</label>
+        <div>
+            <div class="crudHead">@calorific</div>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Category</label>
+        <div>
+            <div class="crudHead">@category</div>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Image</label>
+        <div><div class="productsAvatar"><img src="data:image;base64,@System.Convert.ToBase64String(imageBytes)"></div></div>
+    </div>
+
+    <div>
+        <div>
+            <input type="hidden" name="requestID" value="@requestID" />
+            <input type="submit" name="buttonDelete" value="Delete" />
+        </div>
+    </div>
+
+</form>

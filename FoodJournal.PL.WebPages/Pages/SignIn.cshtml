@@ -1,0 +1,29 @@
+﻿@{ 
+    Layout = "~/Layouts/_Layout.cshtml";
+}
+
+@{
+    if (IsPost)
+    {
+        var login = Request["login"];
+        var password = Request["password"];
+
+        if (FoodJournal.PL.WebPages.Models.AuthModel.CanLoginAdmin(login, password))
+        {
+            FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
+            Response.Redirect("~");
+        }
+    }
+}
+
+<body>
+    <div class="login">
+        <form action="~/Pages/SignIn.cshtml" method="post">
+            <div class="loginHead">Login:</div>
+            <div><input class="loginInput" type="text" name="login" value="" /></div>
+            <div class="loginHead">Password:</div>
+            <div><input class="loginInput" type="password" name="password" value="" /></div>
+            <button class="loginButton">Sign In</button>
+        </form>
+    </div>
+</body>

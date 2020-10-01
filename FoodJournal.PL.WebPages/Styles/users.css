@@ -1,0 +1,45 @@
+﻿
+.users {
+    background-color: #a8d9fc;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: left;
+    float: left;
+    width: 20%;
+    height: 35%;
+    display: table-cell;
+    vertical-align: middle;
+    word-wrap: break-word;
+}
+
+.users ol {
+    font-weight: bold;
+}
+
+    .users ul {
+        margin: 1px;
+    }
+
+    .users li {
+        list-style: none;
+        margin: 1px;
+    }
+
+.viewUsers {
+    background-color: #1ac39f;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+}
+
+.viewUsers a {
+    text-decoration: none;
+}

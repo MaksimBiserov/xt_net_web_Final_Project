@@ -1,0 +1,35 @@
+﻿
+.menu {
+    position: absolute;
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 0;
+    top: 170px;
+    font-family: sans-serif;
+    width: 17%;
+    left: 10px;
+    z-index: 1;
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.menu ul li {
+    list-style: none;
+    margin-bottom: 2px;
+}
+
+.menu ul li a {
+    display: block;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #452800;
+    text-align: right;
+    padding: 10px;
+    background: #9cff39;
+    font-weight: bold;
+}

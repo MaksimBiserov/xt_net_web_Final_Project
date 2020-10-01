@@ -1,0 +1,9 @@
+﻿.container {
+    position: absolute;
+    right: 10px;
+    border: 2px solid #111111;
+    border-radius: 5px;
+    width: 80%;
+    margin-bottom: 20px;
+    top: 170px;
+}

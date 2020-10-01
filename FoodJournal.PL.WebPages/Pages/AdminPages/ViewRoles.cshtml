@@ -1,0 +1,27 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    Layout = "~/Layouts/_Layout.cshtml";
+    IAccountBLL users = DependencyResolver.AccountBLL;
+    string userID = Request["userID"];
+    string role = Request["role"];
+}
+
+<form action="~/Pages/AdminPages/ViewRoles.cshtml" method="post">
+    <div class="container">
+        @foreach (var user in users.GetAll().ToList())
+        {
+
+            <div class="users">
+                <ol>User ID: @user.ID</ol>
+                <ul>
+                    <li>Login: @user.Login</li>
+                    <li>Password: @user.Password</li>
+                    <li>Role: @user.Role[0]</li>
+                    <li>ProfileID: @user.ProfileID</li>
+                </ul>
+            </div>
+        }
+    </div>
+</form>

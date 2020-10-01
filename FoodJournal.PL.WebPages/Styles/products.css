@@ -1,0 +1,50 @@
+﻿
+.productsCont {
+    margin-top: 90px;
+}
+
+.products {
+    background: linear-gradient(to top left, #ffbe93, #f3ff84);
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    float: left;
+    width: 200px;
+    height: 200px;
+    display: table-cell;
+    vertical-align: middle;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.products ol {
+        font-weight: bold;
+    }
+
+    .products ul {
+        margin: 1px;
+    }
+
+    .products li {
+        list-style: none;
+        margin: 1px;
+    }
+
+.productsAvatar {
+    float: left;
+}
+
+.changeImg {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+}
+
+.changeButton {
+    background-color: #a8d9fc;
+    width: 100px;
+    border: 2px solid #412f00;
+    border-radius: 5px;
+    font-weight: bold;
+}
