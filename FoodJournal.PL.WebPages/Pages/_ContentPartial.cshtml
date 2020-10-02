@@ -36,7 +36,6 @@
                 <ul>
                     <li>ID: @product.ID</li>
                     <li>Calorific: @product.Calorific</li>
-                    <li>Net Mass: @product.NetMass</li>
                     <li>Category: @product.Category</li>
                 </ul>
 
@@ -50,9 +49,32 @@
         }
     }
 
-    else if (User.Identity.IsAuthenticated && User.IsInRole("user"))
+    @if (User.Identity.IsAuthenticated)
     {
+        foreach (var product in productBLL.GetAll(Products.All).ToList())
+        {
+            <div class="productsCont">
+                <div class="products">
 
+                @if (product.Image.Length == 0)
+                  {
+                    <div><img src="~/Images/restaurant.png"></div>
+                  }
+
+                  else
+                  {
+                    <div class="productsAvatar"><img src="data:image;base64,@System.Convert.ToBase64String(product.Image)"></div>
+                  }
+
+                <ol>@product.Name</ol>
+                <ul>
+                    <li>Calorific: @product.Calorific</li>
+                    <li>Category: @product.Category</li>
+                </ul>
+            
+            </div>
+            </div>
+        }
     }
 
     else

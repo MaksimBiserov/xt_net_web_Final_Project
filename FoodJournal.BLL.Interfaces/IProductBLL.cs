@@ -9,6 +9,6 @@ namespace FoodJournal.BLL.Interfaces
         void DeleteById(int id);
         IEnumerable<Product> GetAll(Products products);
         Product GetById(int id);
-        void Edit(int id, string name, double calorific, int netMass, byte[] image, Products category, string imageName);
+        void Edit(int id, string name, double calorific, int netMass, byte[] image, Products category);
     }
 }

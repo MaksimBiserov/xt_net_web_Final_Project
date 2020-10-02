@@ -8,9 +8,8 @@
     double calorific = 0;
     int netMass = 100;
     byte[] imageBytes = null;
-    Products category = Products.All;
+    Products category = 0;
     string requestID = "";
-    string imageName = "";
     IProductBLL productBLL = DependencyResolver.ProductBLL;
 
     if (!IsPost)
@@ -22,7 +21,6 @@
         netMass = product.NetMass;
         imageBytes = product.Image;
         category = product.Category;
-        imageName = product.ImageName;
     }
 
     if (IsPost)
@@ -43,7 +41,7 @@
         }
 
         category = (Products)Enum.Parse(typeof(Products), Request.Form["category"]);
-        productBLL.Edit(Int32.Parse(requestID), name, calorific, netMass, imageBytes, category, imageName);
+        productBLL.Edit(Int32.Parse(requestID), name, calorific, netMass, imageBytes, category);
         Response.Redirect("~");
     }
 }
@@ -81,7 +79,7 @@
     <div>
         <label class="crudHead">Image</label>
         <div>
-            <input class="crudInput" type="file" name="Image" value="@imageBytes" title="@imageName">
+            <input class="crudInput" type="file" name="Image" value="@imageBytes">
         </div>
     </div>
 

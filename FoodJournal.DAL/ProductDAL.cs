@@ -80,16 +80,6 @@ namespace FoodJournal.DAL
 
                 command.Parameters.Add(category);
 
-                SqlParameter imageName = new SqlParameter()
-                {
-                    DbType = System.Data.DbType.String,
-                    ParameterName = "@ImageName",
-                    Value = product.ImageName,
-                    Direction = System.Data.ParameterDirection.Input
-                };
-
-                command.Parameters.Add(imageName);
-
                 connection.Open();
                 command.ExecuteNonQuery();
                 return (int)id.Value;
@@ -109,7 +99,7 @@ namespace FoodJournal.DAL
             }
         }
 
-        public void Edit(int id, string productName, double calorific, int netMass, byte[] image, Products category, string imageName)
+        public void Edit(int id, string productName, double calorific, int netMass, byte[] image, Products category)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -123,7 +113,6 @@ namespace FoodJournal.DAL
                     [Calorific] = @Calorific, 
                     [NetMass] = @NetMass, 
                     {imageUpdate} 
-                    [ImageName] = @ImageName,
                     [Category] = @Category 
                 WHERE [ID] = @ID";
                 command.Parameters.AddWithValue("@ID", id);
@@ -133,7 +122,6 @@ namespace FoodJournal.DAL
                 if(image != null)
                     command.Parameters.AddWithValue("@Image", image);
                 command.Parameters.AddWithValue("@Category", category);
-                command.Parameters.AddWithValue("@ImageName", imageName);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -147,7 +135,7 @@ namespace FoodJournal.DAL
                 command.CommandType = System.Data.CommandType.Text;
                 command.CommandText = @"
                 SELECT 
-                    [ID], [ProductName], [Calorific], [NetMass], [Image], [Category], [ImageName] 
+                    [ID], [ProductName], [Calorific], [NetMass], [Image], [Category]
                 FROM [Product]";
                 if(products != Products.All)
                     command.CommandText += $" WHERE Category = {(int)products}";
@@ -163,8 +151,7 @@ namespace FoodJournal.DAL
                         Calorific = (double)executeReader["Calorific"],
                         NetMass = (int)executeReader["NetMass"],
                         Image = Convert.IsDBNull(executeReader["Image"]) ? new byte[] { } : (byte[])executeReader["Image"],
-                        Category = (Products)executeReader["Category"],
-                        ImageName = executeReader["ImageName"].ToString()
+                        Category = (Products)executeReader["Category"]
                     });
                 }
             }
@@ -178,7 +165,7 @@ namespace FoodJournal.DAL
             {
                 command = connection.CreateCommand();
                 command.CommandType = System.Data.CommandType.Text;
-                command.CommandText = "SELECT [ID], [ProductName], [Calorific], [NetMass], [Image], [Category], [ImageName] FROM [Product] WHERE [ID] = @id";
+                command.CommandText = "SELECT [ID], [ProductName], [Calorific], [NetMass], [Image], [Category] FROM [Product] WHERE [ID] = @id";
                 command.Parameters.AddWithValue("@id", id);
                 connection.Open();
                 SqlDataReader executeReader = command.ExecuteReader();
@@ -195,8 +182,7 @@ namespace FoodJournal.DAL
                     Calorific = (double)executeReader["Calorific"],
                     NetMass = (int)executeReader["NetMass"],
                     Image = Convert.IsDBNull(executeReader["Image"]) ? new byte[] { } : (byte[])executeReader["Image"],
-                    Category = (Products)executeReader["Category"],
-                    ImageName = executeReader["ImageName"].ToString()
+                    Category = (Products)executeReader["Category"]
                 };
             }
 

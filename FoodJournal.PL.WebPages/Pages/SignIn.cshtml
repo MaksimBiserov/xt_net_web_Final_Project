@@ -1,18 +1,50 @@
-﻿@{ 
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
     Layout = "~/Layouts/_Layout.cshtml";
+    string errorMessage = null;
+}
+
+@if (errorMessage != null)
+{
+    <div id="modalVisible">
+        @errorMessage
+        <a href="~/Pages/SignIn.cshtml" class="close">Close</a>
+    </div>
 }
 
 @{
     if (IsPost)
     {
-        var login = Request["login"];
-        var password = Request["password"];
+        string login = Request["login"];
+        string password = Request["password"];
+        IAccountBLL userBLL = DependencyResolver.AccountBLL;
 
         if (FoodJournal.PL.WebPages.Models.AuthModel.CanLoginAdmin(login, password))
         {
             FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
             Response.Redirect("~");
         }
+
+        foreach(var user in userBLL.GetAll().ToList())
+        {
+            if(Request["login"] == user.Login)
+            {
+                if(user.Role[0] == "User")
+                {
+                    FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
+                    Response.Redirect("~");
+                }
+
+                else
+                {
+                    errorMessage = "Invalid data entered";
+                }
+            }
+        }
+
+
     }
 }
 

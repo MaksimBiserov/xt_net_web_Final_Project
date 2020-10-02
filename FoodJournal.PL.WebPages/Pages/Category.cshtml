@@ -25,7 +25,7 @@
         Products category = Products.All;
         string categoryValue = Request.QueryString["category"];
 
-        if(!string.IsNullOrEmpty(categoryValue))
+        if (!string.IsNullOrEmpty(categoryValue))
         {
             category = (Products)Enum.Parse(typeof(Products), categoryValue, true);
         }
@@ -58,7 +58,7 @@
 
                 </div>
             </div>
-            
+
         }
     }
 
@@ -70,6 +70,9 @@
     else
     {
         <div class="guest">Sorry, application isn't available for guests!</div>
+        <div class="guest">
+            <a href="~/Pages/Registration.cshtml">Registration</a>
+        </div>
     }
 
 </div>

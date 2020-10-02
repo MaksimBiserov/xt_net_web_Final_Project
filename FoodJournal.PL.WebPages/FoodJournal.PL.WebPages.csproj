@@ -121,7 +121,7 @@
     <Content Include="Pages\AdminPages\EditProduct.cshtml" />
     <Content Include="Pages\AdminPages\DeleteProduct.cshtml" />
     <Content Include="Pages\AdminPages\ViewRoles.cshtml" />
-    <Content Include="Pages\MenuPages\Category.cshtml" />
+    <Content Include="Pages\Category.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

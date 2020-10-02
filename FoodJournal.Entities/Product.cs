@@ -9,7 +9,6 @@ namespace FoodJournal.Entities
         public int NetMass { get; set; }
         public byte[] Image { get; set; }
         public Products Category { get; set; }
-        public string ImageName { get; set; }
     }
 }
 

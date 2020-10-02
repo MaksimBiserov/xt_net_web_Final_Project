@@ -24,9 +24,9 @@ namespace FoodJournal.BLL
             productDAL.DeleteById(id);
         }
 
-        public void Edit(int id, string name, double calorific, int netMass, byte[] image, Products category, string imageName)
+        public void Edit(int id, string name, double calorific, int netMass, byte[] image, Products category)
         {
-            productDAL.Edit(id, name, calorific, netMass, image, category, imageName);
+            productDAL.Edit(id, name, calorific, netMass, image, category);
         }
 
         public IEnumerable<Product> GetAll(Products products)
