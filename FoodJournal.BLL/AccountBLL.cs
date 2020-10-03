@@ -19,11 +19,6 @@ namespace FoodJournal.BLL
             accountDAL.AddRole(account);
         }
 
-        public bool CreateAccount(Account account)
-        {
-            return accountDAL.CreateAccount(account);
-        }
-
         public void DeleteById(int id)
         {
             accountDAL.DeleteById(id);
@@ -34,14 +29,14 @@ namespace FoodJournal.BLL
             return accountDAL.GetById(id);
         }
 
-        public bool IsAccount(string login, string password)
-        {
-            return accountDAL.IsAccount(login, password);
-        }
-
         public IEnumerable<Account> GetAll()
         {
             return accountDAL.GetAll();
+        }
+
+        public void Edit(int id, string login, string password, double bodyWeight, Goals goal)
+        {
+            accountDAL.Edit(id, login, password, bodyWeight, goal);
         }
     }
 }

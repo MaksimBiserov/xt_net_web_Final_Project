@@ -5,11 +5,10 @@ namespace FoodJournal.BLL.Interfaces
 {
     public interface IAccountBLL
     {
-        bool CreateAccount(Account account);
-        void DeleteById(int id);
-        bool IsAccount(string login, string password);
         void AddRole(Account account);
         Account GetById(int id);
+        void DeleteById(int id);
         IEnumerable<Account> GetAll();
+        void Edit(int id, string login, string password, double bodyWeight, Goals goal);
     }
 }

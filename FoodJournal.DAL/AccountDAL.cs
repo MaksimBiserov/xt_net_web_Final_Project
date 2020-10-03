@@ -33,7 +33,7 @@ namespace FoodJournal.DAL
                 SqlParameter login = new SqlParameter()
                 {
                     DbType = System.Data.DbType.String,
-                    ParameterName = "@Login",
+                    ParameterName = "@LoginName",
                     Value = account.Login,
                     Direction = System.Data.ParameterDirection.Input
                 };
@@ -59,14 +59,30 @@ namespace FoodJournal.DAL
                 };
 
                 command.Parameters.Add(role);
+
+                SqlParameter bodyWeight = new SqlParameter()
+                {
+                    DbType = System.Data.DbType.Double,
+                    ParameterName = "@BodyWeight",
+                    Value = account.BodyWeight,
+                    Direction = System.Data.ParameterDirection.Input
+                };
+
+                command.Parameters.Add(bodyWeight);
+
+                SqlParameter goal = new SqlParameter()
+                {
+                    DbType = System.Data.DbType.Int32,
+                    ParameterName = "@Goal",
+                    Value = account.Goal,
+                    Direction = System.Data.ParameterDirection.Input
+                };
+
+                command.Parameters.Add(goal);
+
                 connection.Open();
                 command.ExecuteNonQuery();
             }
-        }
-
-        public bool CreateAccount(Account account)
-        {
-            throw new Exception();
         }
 
         public void DeleteById(int id)
@@ -90,7 +106,14 @@ namespace FoodJournal.DAL
             {
                 command = connection.CreateCommand();
                 command.CommandType = System.Data.CommandType.Text;
-                command.CommandText = "SELECT [ID], [Login], [Password], [Role], [ProfileID] FROM [Account]";
+                command.CommandText = "SELECT " +
+                    "[ID], " +
+                    "[LoginName], " +
+                    "[Password], " +
+                    "[Role], " +
+                    "[BodyWeight], " +
+                    "[Goal] " +
+                    "FROM [Account]";
                 connection.Open();
                 SqlDataReader executeReader = command.ExecuteReader();
 
@@ -104,41 +127,71 @@ namespace FoodJournal.DAL
                     ID = (int)executeReader["ID"],
                     Login = executeReader["LoginName"].ToString(),
                     Password = executeReader["Password"].ToString(),
-                    Role = new [] { executeReader["Role"].ToString() },
-                    ProfileID = (int)executeReader["ProfileID"]
+                    Role = new[] { executeReader["Role"].ToString() },
+                    BodyWeight = (double)executeReader["BodyWeight"],
+                    Goal = (Goals)executeReader["Goal"]
                 };
             }
 
             return account;
         }
 
-        public bool IsAccount(string login, string password)
-        {
-            throw new Exception();
-        }
-
         public IEnumerable<Account> GetAll()
         {
-            var users = new List<Account>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 command = connection.CreateCommand();
                 command.CommandType = System.Data.CommandType.Text;
-                command.CommandText = "SELECT [ID], [Login], [Password], [Role], [ProfileID] FROM [Account]";
+                
+                command.CommandText =
+                    "SELECT " +
+                    "[ID], " +
+                    "[LoginName], " +
+                    "[Password], " +
+                    "[Role], " +
+                    "[BodyWeight], " +
+                    "[Goal] " +
+                    "FROM [Account]";
+
                 connection.Open();
                 SqlDataReader executeReader = command.ExecuteReader();
 
                 while (executeReader.Read())
                 {
-                    int id = (int)executeReader["ID"];
-                    string login = executeReader["Login"].ToString();
-                    string password = "hidden";
-                    string role = executeReader["Role"].ToString();
-                    int profileID = 1;
-                    users.Add(new Account { ID = id, Login = login, Password = password, Role = new[] { role }, ProfileID = profileID });
+                    yield return (new Account()
+                    {
+                        ID = (int)executeReader["ID"],
+                        Login = executeReader["LoginName"].ToString(),
+                        Password = "hidden",
+                        Role = new[] { executeReader["Role"].ToString() },
+                        BodyWeight = (double)executeReader["BodyWeight"],
+                        Goal = (Goals)executeReader["Goal"]
+                    });
                 }
             }
-            return users;
+        }
+
+        public void Edit(int id, string login, string password, double bodyWeight, Goals goal)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = @"
+                UPDATE [Account] SET 
+                    [LoginName] = @LoginName, 
+                    [Password] = @Password, 
+                    [BodyWeight] = @BodyWeight, 
+                    [Goal] = @Goal 
+                WHERE [ID] = @ID";
+                command.Parameters.AddWithValue("@ID", id);
+                command.Parameters.AddWithValue("@LoginName", login);
+                command.Parameters.AddWithValue("@Password", password);
+                command.Parameters.AddWithValue("@BodyWeight", bodyWeight);
+                command.Parameters.AddWithValue("@Goal", goal);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace FoodJournal.DAL
         private static string connectionString = ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString;
         SqlCommand command;
 
-        public int Add(Product product)
+        public int AddToBase(Product product)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

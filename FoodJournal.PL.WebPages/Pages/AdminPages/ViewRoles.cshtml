@@ -4,11 +4,13 @@
 @{
     Layout = "~/Layouts/_Layout.cshtml";
     IAccountBLL users = DependencyResolver.AccountBLL;
-    string userID = Request["userID"];
-    string role = Request["role"];
 }
 
 <form action="~/Pages/AdminPages/ViewRoles.cshtml" method="post">
+    <div class="totalCalorific">
+        View profiles
+    </div>
+
     <div class="container">
         @foreach (var user in users.GetAll().ToList())
         {
@@ -19,7 +21,8 @@
                     <li>Login: @user.Login</li>
                     <li>Password: @user.Password</li>
                     <li>Role: @user.Role[0]</li>
-                    <li>ProfileID: @user.ProfileID</li>
+                    <li>Body Weight: @user.BodyWeight</li>
+                    <li>Goal: @user.Goal</li>
                 </ul>
             </div>
         }

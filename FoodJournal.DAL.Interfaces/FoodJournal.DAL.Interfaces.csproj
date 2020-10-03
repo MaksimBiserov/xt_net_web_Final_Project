@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAccountDAL.cs" />
+    <Compile Include="IDishDAL.cs" />
     <Compile Include="IProductDAL.cs" />
-    <Compile Include="IProfileDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

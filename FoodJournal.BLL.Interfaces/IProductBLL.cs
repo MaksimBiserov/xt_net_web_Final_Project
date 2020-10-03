@@ -5,7 +5,7 @@ namespace FoodJournal.BLL.Interfaces
 {
     public interface IProductBLL
     {
-        int Add(Product product);
+        int AddToBase(Product product);
         void DeleteById(int id);
         IEnumerable<Product> GetAll(Products products);
         Product GetById(int id);

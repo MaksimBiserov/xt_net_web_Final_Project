@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAccountBLL.cs" />
+    <Compile Include="IDishBLL.cs" />
     <Compile Include="IProductBLL.cs" />
-    <Compile Include="IProfileBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

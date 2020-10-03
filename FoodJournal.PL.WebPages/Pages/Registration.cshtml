@@ -5,8 +5,11 @@
     Layout = "~/Layouts/_Layout.cshtml";
     string errorMessage = null;
     IAccountBLL registrationUser = DependencyResolver.AccountBLL;
-    string login = Request["login"];
-    string password = Request["password"];
+    string login = Request["Login"];
+    string password = Request["Password"];
+    double bodyWeight;
+    if(!Double.TryParse(Request["BodyWeight"], out bodyWeight)) { };
+    string goal = Request["Goal"];
 }
 
 @if (errorMessage != null)
@@ -25,7 +28,9 @@
         {
             Login = login,
             Password = password,
-            Role = new string[] { "User" }
+            Role = new string[] { "User" },
+            BodyWeight = bodyWeight,
+            Goal = (Goals)Enum.Parse(typeof(Goals), goal, true)
         });
 
         FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
@@ -43,18 +48,42 @@
         <div>
             <p class="loginHead">Registration</p>
         </div>
+
         <div>
             <label class="loginHead">Login</label>
             <div>
-                <input class="loginInput" type="text" id="login" name="login" value=@login required>
+                <input class="loginInput" type="text" name="Login" value=@login required>
             </div>
         </div>
+
         <div>
             <label class="loginHead">Password</label>
             <div>
-                <input class="loginInput" type="password" id="password" name="password" value=@password required>
+                <input class="loginInput" type="password" name="Password" value=@password required>
             </div>
         </div>
+
+        <div>
+            <label class="loginHead">Body Weight</label>
+            <div>
+                <input class="loginInput" type="text" name="BodyWeight" value=@bodyWeight required>
+            </div>
+        </div>
+
+        <div>
+            <label class="loginHead">Goal</label>
+            <div>
+                <select class="loginInput" name="Goal" size="1">
+
+                    @foreach (var item in Enum.GetNames(typeof(Goals)))
+                    {
+                        <option value="@goal">@item</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+
         <div>
             <div>
                 <button class="loginButton">Registration</button>

@@ -1,0 +1,84 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    Layout = "~/Layouts/_Layout.cshtml";
+    string id = Request.QueryString["ID"];
+    string name = "";
+    double calorific = 0;
+    int netMass = 100;
+    byte[] imageBytes = null;
+    Products category = 0;
+    string requestID = "";
+    IProductBLL productBLL = DependencyResolver.ProductBLL;
+    IDishBLL dishBLL = DependencyResolver.DishBLL;
+
+    if (!IsPost)
+    {
+        var product = productBLL.GetById(int.Parse(Request.QueryString["ID"]));
+        requestID = product.ID.ToString();
+        name = product.Name;
+        calorific = product.Calorific;
+        netMass = product.NetMass;
+        imageBytes = product.Image;
+        category = product.Category;
+    }
+
+    if (IsPost)
+    {
+        requestID = Request.Form["requestID"];
+        name = Request.Form["name"];
+        calorific = Double.Parse(Request.Form["calorific"]);
+        netMass = Int32.Parse(Request.Form["netMass"]);
+
+        dishBLL.AddToDish(new FoodJournal.Entities.Product()
+        {
+            Name = name,
+            Calorific = calorific,
+            NetMass = netMass
+        });
+
+        Response.Redirect("~");
+    }
+}
+
+<form class="crudContainer" action="~/Pages/UserPages/AddProductToDish.cshtml" enctype="multipart/form-data" method="post">
+
+    <div>
+        <label class="crudHead">Name of product</label>
+        <div>
+            <input type="hidden" name="Name" value=@name required>
+            <div class="crudHead">@name</div>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Calorific</label>
+        <div>
+            <input type="hidden" name="Calorific" value=@calorific required>
+            <div class="crudHead">@calorific</div>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Image</label>
+        <div>
+            <div class="productsAvatar"><img src="data:image;base64,@System.Convert.ToBase64String(imageBytes)"></div>
+        </div>
+    </div>
+
+    <div>
+        <label class="crudHead">Net Mass</label>
+        <div>
+            <input class="crudInput" type="text" name="NetMass" value=@netMass required>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <input type="hidden" name="requestID" value="@requestID" />
+            <button class="crudButton">Add</button>
+        </div>
+    </div>
+
+</form>

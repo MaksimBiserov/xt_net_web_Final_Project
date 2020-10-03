@@ -1,0 +1,80 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    Layout = "~/Layouts/_Layout.cshtml";
+    string id = Request.QueryString["ID"];
+    string login = "";
+    string password = "";
+    double bodyWeight = 0;
+    Goals goal = 0;
+    string requestID = "";
+    IAccountBLL accountBLL = DependencyResolver.AccountBLL;
+
+    if (!IsPost)
+    {
+        var account = accountBLL.GetById(int.Parse(Request.QueryString["ID"]));
+        requestID = account.ID.ToString();
+        login = account.Login;
+        password = account.Password;
+        bodyWeight = account.BodyWeight;
+        goal = account.Goal;
+    }
+
+    if (IsPost)
+    {
+        requestID = Request.Form["requestID"];
+        login = Request.Form["Login"];
+        password = Request.Form["Password"];
+        bodyWeight = Double.Parse(Request.Form["BodyWeight"]);
+        goal = (Goals)Enum.Parse(typeof(Goals), Request.Form["Goal"]);
+        accountBLL.Edit(Int32.Parse(requestID), login, password, bodyWeight, goal);
+        Response.Redirect("~");
+    }
+}
+
+<form class="crudContainer" action="~/Pages/UserPages/EditAccount.cshtml" enctype="multipart/form-data" method="post">
+
+    <div>
+        <label class="loginHead">Login</label>
+        <div>
+            <input class="loginInput" type="text" name="Login" value=@login required>
+        </div>
+    </div>
+
+    <div>
+        <label class="loginHead">Password</label>
+        <div>
+            <input class="loginInput" type="password" name="Password" value=@password required>
+        </div>
+    </div>
+
+    <div>
+        <label class="loginHead">Body Weight</label>
+        <div>
+            <input class="loginInput" type="text" name="BodyWeight" value=@bodyWeight required>
+        </div>
+    </div>
+
+    <div>
+        <label class="loginHead">Goal</label>
+        <div>
+            <select class="loginInput" name="Goal" size="1">
+
+                @foreach (var item in Enum.GetNames(typeof(Goals)))
+                {
+                    <option value="@goal">@item</option>
+                }
+
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <input type="hidden" name="requestID" value="@requestID" />
+            <button class="crudButton">Edit</button>
+        </div>
+    </div>
+
+</form>

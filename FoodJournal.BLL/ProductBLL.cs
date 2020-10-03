@@ -14,9 +14,9 @@ namespace FoodJournal.BLL
             this.productDAL = productDAL;
         }
 
-        public int Add(Product product)
+        public int AddToBase(Product product)
         {
-            return productDAL.Add(product);
+            return productDAL.AddToBase(product);
         }
 
         public void DeleteById(int id)

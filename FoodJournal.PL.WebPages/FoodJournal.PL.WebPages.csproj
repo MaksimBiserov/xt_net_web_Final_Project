@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\change.png" />
+    <Content Include="Images\plus.png" />
     <Content Include="Images\restaurant.png" />
     <Content Include="Images\trash.png" />
     <Content Include="JS\outputElements.js" />
@@ -122,6 +123,9 @@
     <Content Include="Pages\AdminPages\DeleteProduct.cshtml" />
     <Content Include="Pages\AdminPages\ViewRoles.cshtml" />
     <Content Include="Pages\Category.cshtml" />
+    <Content Include="Pages\UserPages\AddProductToDish.cshtml" />
+    <Content Include="Pages\UserPages\Dish.cshtml" />
+    <Content Include="Pages\UserPages\EditAccount.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
