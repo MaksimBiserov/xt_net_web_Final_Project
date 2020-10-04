@@ -11,7 +11,7 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-            <div class="loginHead">Hello, @User.Identity.Name</div>
+            <div class="loginField">Hello, @User.Identity.Name</div>
 
             if (!User.IsInRole("admin"))
             {
@@ -29,7 +29,7 @@
 
         else
         {
-            <div class="loginHead">Hello, guest!</div>
+            <div class="loginField">Hello, guest!</div>
             <div class="loginButton"><a href="~/Pages/SignIn.cshtml">Sign In</a></div>
         }
 

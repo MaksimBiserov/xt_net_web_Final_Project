@@ -1,4 +1,10 @@
-﻿@{
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    IDishBLL dishBLL = DependencyResolver.DishBLL;
+    dishBLL.DeleteAll();
     FormsAuthentication.SignOut();
     Response.Redirect("~");
 }
+

@@ -124,5 +124,52 @@ namespace FoodJournal.DAL
         {
             return calorific * (Convert.ToDouble(netMass) / 100);
         }
+
+        public void DeleteById(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = "DELETE FROM [Dish] WHERE [ID] = @id";
+                command.Parameters.AddWithValue("@id", id);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteAll()
+        {
+            List<Product> dish = new List<Product>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = @"
+                SELECT 
+                    [ID], [ProductName], [Calorific], [NetMass]
+                FROM [Dish]";
+
+                connection.Open();
+                SqlDataReader executeReader = command.ExecuteReader();
+
+                while (executeReader.Read())
+                {
+                    dish.Add(new Product()
+                    {
+                        ID = (int)executeReader["ID"],
+                        Name = executeReader["ProductName"].ToString(),
+                        Calorific = (double)executeReader["Calorific"],
+                        NetMass = (int)executeReader["NetMass"]
+                    });
+                }
+
+                foreach(var product in dish)
+                {
+                    DeleteById(product.ID);
+                }
+            }
+        }
     }
 }

@@ -33,5 +33,15 @@ namespace FoodJournal.BLL
         {
             return dishDAL.GetCalorificSumElements(calorific, netMass);
         }
+
+        public void DeleteById(int id)
+        {
+            dishDAL.DeleteById(id);
+        }
+
+        public void DeleteAll()
+        {
+            dishDAL.DeleteAll();
+        }
     }
 }

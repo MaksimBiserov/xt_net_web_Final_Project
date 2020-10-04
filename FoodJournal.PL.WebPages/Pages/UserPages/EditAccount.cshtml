@@ -33,31 +33,33 @@
     }
 }
 
-<form class="crudContainer" action="~/Pages/UserPages/EditAccount.cshtml" enctype="multipart/form-data" method="post">
+<form class="dialogPage" action="~/Pages/UserPages/EditAccount.cshtml" enctype="multipart/form-data" method="post">
 
+    <div class="loginHead">Profile settings</div>
+    
     <div>
-        <label class="loginHead">Login</label>
+        <label class="loginField">Login</label>
         <div>
-            <input class="loginInput" type="text" name="Login" value=@login required>
+            <input class="loginInput" id="charLogin" type="text" name="Login" minlength="4" maxlength="12" value=@login required>
         </div>
     </div>
 
     <div>
-        <label class="loginHead">Password</label>
+        <label class="loginField">Password</label>
         <div>
-            <input class="loginInput" type="password" name="Password" value=@password required>
+            <input class="loginInput" id="charPassword" type="password" name="Password" minlength="6" maxlength="12" value=@password required>
         </div>
     </div>
 
     <div>
-        <label class="loginHead">Body Weight</label>
+        <label class="loginField">Body Weight</label>
         <div>
-            <input class="loginInput" type="text" name="BodyWeight" value=@bodyWeight required>
+            <input class="loginInput" id="minValue" type="number" name="BodyWeight" min="0" value=@bodyWeight required>
         </div>
     </div>
 
     <div>
-        <label class="loginHead">Goal</label>
+        <label class="loginField">Goal</label>
         <div>
             <select class="loginInput" name="Goal" size="1">
 
@@ -73,8 +75,10 @@
     <div>
         <div>
             <input type="hidden" name="requestID" value="@requestID" />
-            <button class="crudButton">Edit</button>
+            <button class="loginButton" onclick="validateMinValue(); validateLogin(); validatePassword();">Edit</button>
         </div>
     </div>
+
+    <script type="text/javascript" src="~/JS/Validation.js"></script>
 
 </form>

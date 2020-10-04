@@ -42,43 +42,41 @@
     }
 }
 
-<form class="crudContainer" action="~/Pages/UserPages/AddProductToDish.cshtml" enctype="multipart/form-data" method="post">
+<form class="dialogPage" action="~/Pages/UserPages/AddProductToDish.cshtml" enctype="multipart/form-data" method="post">
+
+    <div class="loginHead">Add product</div>
 
     <div>
-        <label class="crudHead">Name of product</label>
-        <div>
-            <input type="hidden" name="Name" value=@name required>
-            <div class="crudHead">@name</div>
-        </div>
+        <input type="hidden" name="Name" value=@name required>
+        <div class="loginField">Name of product: @name</div>
     </div>
 
     <div>
-        <label class="crudHead">Calorific</label>
-        <div>
-            <input type="hidden" name="Calorific" value=@calorific required>
-            <div class="crudHead">@calorific</div>
-        </div>
+        <input type="hidden" name="Calorific" value=@calorific required>
+        <div class="loginField">Calorific: @calorific</div>
     </div>
 
     <div>
-        <label class="crudHead">Image</label>
+        <label class="loginField">Image</label>
         <div>
             <div class="productsAvatar"><img src="data:image;base64,@System.Convert.ToBase64String(imageBytes)"></div>
         </div>
     </div>
 
     <div>
-        <label class="crudHead">Net Mass</label>
+        <label class="loginField">Net Mass</label>
         <div>
-            <input class="crudInput" type="text" name="NetMass" value=@netMass required>
+            <input class="loginInput" id="minValue" type="number" name="NetMass" min="0" value=@netMass required>
         </div>
     </div>
 
     <div>
         <div>
             <input type="hidden" name="requestID" value="@requestID" />
-            <button class="crudButton">Add</button>
+            <button class="loginButton" onclick="validateMinValue()">Add</button>
         </div>
     </div>
+
+    <script type="text/javascript" src="~/JS/Validation.js"></script>
 
 </form>

@@ -22,14 +22,14 @@
         font-weight: bold;
     }
 
-    .products ul {
-        margin: 1px;
-    }
+.products ul {
+    margin: 1px;
+}
 
-    .products li {
-        list-style: none;
-        margin: 1px;
-    }
+.products li {
+    list-style: none;
+    margin: 1px;
+}
 
 .productsAvatar {
     float: left;

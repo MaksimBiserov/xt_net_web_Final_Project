@@ -1,0 +1,13 @@
+﻿
+.dialogPage {
+    margin-left: 40%;
+    margin-top: 7%;
+    text-align: left;
+}
+
+.dialogInputImage {
+    margin-bottom: 10px;
+    font-size: 16px;
+    width: 300px;
+    height: 30px;
+}

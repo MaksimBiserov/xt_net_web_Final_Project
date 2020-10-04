@@ -12,6 +12,10 @@
         Total calorific, kcal: @totalCalorific
     </div>
 
+    <div class="totalCalorific">
+        <a href="~/Pages/UserPages/DeleteDishAll.cshtml">Delete all</a>
+    </div>
+
     <div class="container">
 
         @foreach (var product in dishBLL.GetAll().ToList())
@@ -25,7 +29,12 @@
                     <li>Net Mass, g: @product.NetMass</li>
                     <li>Total calorific, kcal: @elementCalorificSum</li>
                 </ul>
-            </div>
+
+                <div>
+                    <a href="~/Pages/UserPages/DeleteDishElement.cshtml?id=@product.ID"><img src="~/Images/trash.png"></a>
+                </div>
+
+            </div> 
         }
 
     </div>

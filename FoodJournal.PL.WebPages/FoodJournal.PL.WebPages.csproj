@@ -92,13 +92,13 @@
     <Content Include="Images\plus.png" />
     <Content Include="Images\restaurant.png" />
     <Content Include="Images\trash.png" />
-    <Content Include="JS\outputElements.js" />
+    <Content Include="JS\Validation.js" />
     <Content Include="Styles\admin.css" />
     <Content Include="Styles\container.css" />
+    <Content Include="Styles\dialogPage.css" />
     <Content Include="Styles\Head.css" />
     <Content Include="Styles\logIn.css" />
     <Content Include="Styles\menu.css" />
-    <Content Include="Styles\modal.css" />
     <Content Include="Styles\products.css" />
     <Content Include="Styles\users.css" />
     <Content Include="Web.config" />
@@ -126,6 +126,8 @@
     <Content Include="Pages\UserPages\AddProductToDish.cshtml" />
     <Content Include="Pages\UserPages\Dish.cshtml" />
     <Content Include="Pages\UserPages\EditAccount.cshtml" />
+    <Content Include="Pages\UserPages\DeleteDishElement.cshtml" />
+    <Content Include="Pages\UserPages\DeleteDishAll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

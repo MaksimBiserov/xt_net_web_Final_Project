@@ -62,9 +62,48 @@
         }
     }
 
-    else if (User.Identity.IsAuthenticated && User.IsInRole("user"))
+    else if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
     {
+        <div class="viewUsers">
+            <a href="~/Pages/UserPages/Dish.cshtml">View dish</a>
+        </div>
 
+        Products category = Products.All;
+        string categoryValue = Request.QueryString["category"];
+
+        if (!string.IsNullOrEmpty(categoryValue))
+        {
+            category = (Products)Enum.Parse(typeof(Products), categoryValue, true);
+        }
+
+        foreach (var product in productBLL.GetAll(category).ToList())
+        {
+            <div class="productsCont">
+                <div class="products">
+
+                    @if (product.Image.Length == 0)
+                    {
+                        <div><img src="~/Images/restaurant.png"></div>
+                    }
+
+                    else
+                    {
+                        <div class="productsAvatar"><img src="data:image;base64,@System.Convert.ToBase64String(product.Image)"></div>
+                    }
+
+                    <ol>@product.Name</ol>
+                    <ul>
+                        <li>Calorific: @product.Calorific</li>
+                        <li>Category: @product.Category</li>
+                    </ul>
+
+                    <div class="changeImg">
+                        <a href="~/Pages/UserPages/AddProductToDish.cshtml?id=@product.ID"><img src="~/Images/plus.png"></a>
+                    </div>
+
+                </div>
+            </div>
+        }
     }
 
     else

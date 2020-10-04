@@ -1,0 +1,25 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    Layout = "~/Layouts/_Layout.cshtml";
+    IDishBLL dishBLL = DependencyResolver.DishBLL;
+
+    if (IsPost && !Request["buttonDelete"].IsEmpty())
+    {
+        dishBLL.DeleteAll();
+        Response.Redirect("~/Pages/UserPages/Dish.cshtml");
+    }
+}
+
+<form class="dialogPage" action="~/Pages/UserPages/DeleteDishAll.cshtml" enctype="multipart/form-data" method="post">
+
+    <div class="loginHead">
+        Delete all products?
+    </div>
+
+    <div>
+        <input class="loginButton" type="submit" name="buttonDelete" value="Delete" />
+    </div>
+
+</form>

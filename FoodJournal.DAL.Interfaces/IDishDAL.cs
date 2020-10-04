@@ -9,5 +9,7 @@ namespace FoodJournal.DAL.Interfaces
         IEnumerable<Product> GetAll();
         double GetCalorificSum();
         double GetCalorificSumElements(double calorific, int netMass);
+        void DeleteById(int id);
+        void DeleteAll();
     }
 }

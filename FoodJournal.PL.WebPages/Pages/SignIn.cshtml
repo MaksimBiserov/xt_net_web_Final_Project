@@ -3,6 +3,8 @@
 
 @{
     Layout = "~/Layouts/_Layout.cshtml";
+    IDishBLL dishBLL = DependencyResolver.DishBLL;
+    dishBLL.DeleteAll();
     string errorMessage = null;
 }
 
@@ -49,11 +51,12 @@
 }
 
 <body>
-    <div class="login">
+    <div class="dialogPage">
         <form action="~/Pages/SignIn.cshtml" method="post">
-            <div class="loginHead">Login:</div>
+            <div class="loginHead">Authorization</div>
+            <div class="loginField">Login:</div>
             <div><input class="loginInput" type="text" name="login" value="" /></div>
-            <div class="loginHead">Password:</div>
+            <div class="loginField">Password:</div>
             <div><input class="loginInput" type="password" name="password" value="" /></div>
             <button class="loginButton">Sign In</button>
         </form>
