@@ -1,7 +1,15 @@
 ﻿@using FoodJournal.Dependences;
 @using FoodJournal.BLL.Interfaces;
+@using log4net;
+@using log4net.Config;
+@using FoodJournal.PL.WebPages.Models;
 
 @{
+    Logger.InitLogger();//инициализация - требуется один раз в начале
+    Logger.Log.Info("Ура заработало!");
+    Logger.Log.Error("Ошибочка вышла!");
+
+
     Layout = "~/Layouts/_Layout.cshtml";
     string id = Request.QueryString["ID"];
     string name = "";
@@ -21,6 +29,7 @@
         netMass = product.NetMass;
         imageBytes = product.Image;
         category = product.Category;
+
     }
 
     if (IsPost)
@@ -40,7 +49,7 @@
             }
         }
 
-        category = (Products)Enum.Parse(typeof(Products), Request.Form["category"]);
+        category = (Products) Enum.Parse(typeof(Products), Request.Form["category"]);
         productBLL.Edit(Int32.Parse(requestID), name, calorific, netMass, imageBytes, category);
         Response.Redirect("~");
     }
@@ -49,7 +58,7 @@
 <form class="dialogPage" action="~/Pages/AdminPages/EditProduct.cshtml" enctype="multipart/form-data" method="post">
 
     <div class="loginHead"> Edit product</div>
-    
+
     <div>
         <label class="loginField">Name of product</label>
         <div>
@@ -70,9 +79,16 @@
             <select class="loginInput" name="Category" size="1">
 
                 @foreach (var item in Enum.GetNames(typeof(Products)))
-                {
-                    <option value="@category">@item</option>
-                }
+                 {
+                     if (item == category.ToString())
+                      {
+                        <option value="@item" selected="selected">@item</option>
+                      }
+                     else
+                      {
+                        <option value="@item">@item</option>
+                      }
+                 }
 
             </select>
         </div>

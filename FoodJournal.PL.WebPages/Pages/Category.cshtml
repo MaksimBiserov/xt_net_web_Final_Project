@@ -4,7 +4,24 @@
 @{
     Layout = "~/Layouts/_Layout.cshtml";
     IProductBLL productBLL = DependencyResolver.ProductBLL;
+    string search = "";
 }
+
+<form action="~/" method="post">
+    <div class="search">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="searchField">
+                <div class="searchString">
+                    <input class="searchInput" name="Search" placeholder="Search" />
+                    <input type="submit" value="Search">
+                </div>
+            </div>
+        }
+
+    </div>
+</form>
 
 <div>
     @RenderPage("~/Pages/_LoginPartial.cshtml")
@@ -22,8 +39,22 @@
             <a href="~/Pages/AdminPages/AddProductToBase.cshtml">+</a>
         </div>
 
+        <div class="viewUsers">
+            <a href="~/Pages/AdminPages/ViewRoles.cshtml">View users</a>
+        </div>
+
+        search = Request.Form["search"];
+
+
+
         Products category = Products.All;
         string categoryValue = Request.QueryString["category"];
+        var products = productBLL.GetAll(Products.All).ToList();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            products = products.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToList();
+        }
 
         if (!string.IsNullOrEmpty(categoryValue))
         {
@@ -70,6 +101,12 @@
 
         Products category = Products.All;
         string categoryValue = Request.QueryString["category"];
+        var products = productBLL.GetAll(Products.All).ToList();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            products = products.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToList();
+        }
 
         if (!string.IsNullOrEmpty(categoryValue))
         {

@@ -65,7 +65,14 @@
 
                 @foreach (var item in Enum.GetNames(typeof(Goals)))
                 {
-                    <option value="@goal">@item</option>
+                    if (item == goal.ToString())
+                    {
+                        <option value="@item" selected="selected">@item</option>
+                    }
+                         else
+                    {
+                      <option value = "@item" > @item </option >
+                    }
                 }
 
             </select>

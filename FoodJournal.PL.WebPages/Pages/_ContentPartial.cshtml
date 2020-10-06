@@ -1,63 +1,101 @@
 ﻿@using FoodJournal.Dependences;
 @using FoodJournal.BLL.Interfaces;
+@using System.Linq;
 
 @{
     Layout = null;
     IProductBLL productBLL = DependencyResolver.ProductBLL;
-
+    string search = "";
 }
 
-<div class="container">
-    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
-    {
-        <div class="addButton">
-            <a href="~/Pages/AdminPages/AddProductToBase.cshtml">+</a>
-        </div>
+<form action="~/" method="post">
+    <div class="search">
 
-        <div class="viewUsers">
-            <a href="~/Pages/AdminPages/ViewRoles.cshtml">View users</a>
-        </div>
-
-        foreach (var product in productBLL.GetAll(Products.All).ToList())
+        @if (User.Identity.IsAuthenticated)
         {
-            <div class="productsCont">
-                <div class="products">
-
-                @if (product.Image.Length == 0)
-                  {
-                    <div><img src="~/Images/restaurant.png"></div>
-                  }
-
-                  else
-                  {
-                    <div class="productsAvatar"><img src="data:image;base64,@System.Convert.ToBase64String(product.Image)"></div>
-                  }
-                <ol>@product.Name</ol>
-                <ul>
-                    <li>ID: @product.ID</li>
-                    <li>Calorific: @product.Calorific</li>
-                    <li>Category: @product.Category</li>
-                </ul>
-
-                <div class="changeImg">
-                    <a href="~/Pages/AdminPages/EditProduct.cshtml?id=@product.ID"><img src="~/Images/change.png"></a>
-                    <a href="~/Pages/AdminPages/DeleteProduct.cshtml?id=@product.ID"><img src="~/Images/trash.png"></a>
+            <div class="searchField">
+                <div class="searchString">
+                    <input class="searchInput" name="Search" placeholder="Search" />
+                    <input type="submit" value="Search">
                 </div>
-            
-            </div>
             </div>
         }
-    }
 
-    else if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
-    {
-        <div class="viewUsers">
-            <a href="~/Pages/UserPages/Dish.cshtml">View dish</a>
-        </div>
+    </div>
 
-        foreach (var product in productBLL.GetAll(Products.All).ToList())
+    <div class="container">
+        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
         {
-            <div class="productsCont">
+            <div class="addButton">
+                <a href="~/Pages/AdminPages/AddProductToBase.cshtml">+</a>
+            </div>
+
+            <div class="search">
+                <a href="~/Pages/AdminPages/ChartCategories.cshtml">Chart categories</a>
+            </div>
+
+            <div class="viewUsers">
+                <a href="~/Pages/AdminPages/ViewRoles.cshtml">View users</a>
+            </div>
+
+            search = Request.Form["search"];
+
+            var products = productBLL.GetAll(Products.All).ToList();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToList();
+            }
+
+            foreach (var product in products)
+            {
+                <div class="productsCont">
+                    <div class="products">
+
+                        @if (product.Image.Length == 0)
+                        {
+                            <div><img src="~/Images/restaurant.png"></div>
+                        }
+
+                        else
+                        {
+                            <div class="productsAvatar"><img src="data:image;base64,@System.Convert.ToBase64String(product.Image)"></div>
+                        }
+                        <ol>@product.Name</ol>
+                        <ul>
+                            <li>ID: @product.ID</li>
+                            <li>Calorific: @product.Calorific</li>
+                            <li>Category: @product.Category</li>
+                        </ul>
+
+                        <div class="changeImg">
+                            <a href="~/Pages/AdminPages/EditProduct.cshtml?id=@product.ID"><img src="~/Images/change.png"></a>
+                            <a href="~/Pages/AdminPages/DeleteProduct.cshtml?id=@product.ID"><img src="~/Images/trash.png"></a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+
+        else if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+        {
+            <div class="viewUsers">
+                <a href="~/Pages/UserPages/Dish.cshtml">View dish</a>
+            </div>
+
+            search = Request.Form["search"];
+
+            var products = productBLL.GetAll(Products.All).ToList();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToList();
+            }
+
+            foreach (var product in products)
+            {
+                <div class="productsCont">
                 <div class="products">
 
                     @if (product.Image.Length == 0)
@@ -82,15 +120,17 @@
 
                 </div>
             </div>
+            }
         }
-    }
 
-    else
-    {
-        <div class="guest">Sorry, application isn't available for guests!</div>
-        <div class="guest">
-            <a href="~/Pages/Registration.cshtml">Registration</a>
-        </div>
-    }
+        else
+        {
+            <div class="guest">Sorry, application isn't available for guests!</div>
+            <div class="guest">
+                <a href="~/Pages/Registration.cshtml">Registration</a>
+            </div>
+        }
 
-</div>
+    </div>
+
+</form>

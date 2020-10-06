@@ -1,0 +1,30 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    IProductBLL productBLL = DependencyResolver.ProductBLL;
+    string[] categories = Enum.GetNames(typeof(Products));
+    int[] intCategoriesCount = new int[Enum.GetNames(typeof(Products)).Length];
+    string[] stringCategoriesCount = new string[Enum.GetNames(typeof(Products)).Length];
+    int index = 1;
+
+    for (int i = 1; i < categories.Length; i++)
+    {
+        foreach (var product in productBLL.GetAll((Products)Enum.GetValues(typeof(Products)).GetValue(index)).ToList())
+        {
+            intCategoriesCount[i]++;
+        }
+
+        stringCategoriesCount[i] = intCategoriesCount[i].ToString();
+        index++;
+    }
+
+    var categoriesChart = new Chart(width: 800, height: 600);
+    categoriesChart.AddSeries(
+        name: "Chart for filling in categories",
+        xValue: categories,
+        yValues: stringCategoriesCount);
+    categoriesChart.Write();
+
+
+}

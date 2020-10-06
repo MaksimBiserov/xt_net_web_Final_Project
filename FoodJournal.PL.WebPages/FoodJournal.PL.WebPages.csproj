@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.11\lib\net45\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -91,6 +94,7 @@
     <Content Include="Images\change.png" />
     <Content Include="Images\plus.png" />
     <Content Include="Images\restaurant.png" />
+    <Content Include="Images\search.png" />
     <Content Include="Images\trash.png" />
     <Content Include="JS\Validation.js" />
     <Content Include="Styles\admin.css" />
@@ -100,17 +104,20 @@
     <Content Include="Styles\logIn.css" />
     <Content Include="Styles\menu.css" />
     <Content Include="Styles\products.css" />
+    <Content Include="Styles\search.css" />
     <Content Include="Styles\users.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AuthModel.cs" />
     <Compile Include="Models\FoodJournalRoleProvider.cs" />
+    <Compile Include="Models\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.cshtml" />
     <Content Include="Layouts\_Layout.cshtml" />
+    <Content Include="ErrorPages\ErrorPage.cshtml" />
     <None Include="packages.config" />
     <Content Include="Pages\_LoginPartial.cshtml" />
     <Content Include="Pages\SignIn.cshtml" />
@@ -128,6 +135,7 @@
     <Content Include="Pages\UserPages\EditAccount.cshtml" />
     <Content Include="Pages\UserPages\DeleteDishElement.cshtml" />
     <Content Include="Pages\UserPages\DeleteDishAll.cshtml" />
+    <Content Include="Pages\AdminPages\ChartCategories.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

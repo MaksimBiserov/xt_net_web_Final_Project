@@ -113,7 +113,8 @@ namespace FoodJournal.DAL
                     "[Role], " +
                     "[BodyWeight], " +
                     "[Goal] " +
-                    "FROM [Account]";
+                    "FROM [Account] WHERE [ID] = @id";
+                command.Parameters.AddWithValue("@id", id);
                 connection.Open();
                 SqlDataReader executeReader = command.ExecuteReader();
 
