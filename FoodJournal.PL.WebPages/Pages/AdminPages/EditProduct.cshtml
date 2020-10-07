@@ -1,13 +1,9 @@
 ﻿@using FoodJournal.Dependences;
 @using FoodJournal.BLL.Interfaces;
-@using log4net;
-@using log4net.Config;
 @using FoodJournal.PL.WebPages.Models;
 
 @{
-    Logger.InitLogger();//инициализация - требуется один раз в начале
-    Logger.Log.Info("Ура заработало!");
-    Logger.Log.Error("Ошибочка вышла!");
+    Logger.Log.Debug("Some message");
 
 
     Layout = "~/Layouts/_Layout.cshtml";

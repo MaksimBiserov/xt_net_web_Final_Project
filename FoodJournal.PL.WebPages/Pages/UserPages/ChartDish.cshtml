@@ -1,0 +1,24 @@
+﻿@using FoodJournal.Dependences;
+@using FoodJournal.BLL.Interfaces;
+
+@{
+    IDishBLL dishBLL = DependencyResolver.DishBLL;
+    double totalCalorific = dishBLL.GetCalorificSum();
+    string[] names = new string[dishBLL.GetAll().Count()];
+    string[] calorificSumValues = new string[dishBLL.GetAll().Count()];
+    int index = 0;
+
+    foreach (var product in dishBLL.GetAll().ToList())
+    {
+        names[index] = product.Name;
+        calorificSumValues[index] = dishBLL.GetCalorificSumElements(product.Calorific, product.NetMass).ToString();
+        index++;
+    }
+
+    var categoriesChart = new Chart(width: 800, height: 600);
+    categoriesChart.AddSeries(
+        name: $"Total calorific, g: {totalCalorific}",
+        xValue: names,
+        yValues: calorificSumValues);
+    categoriesChart.Write();
+}
