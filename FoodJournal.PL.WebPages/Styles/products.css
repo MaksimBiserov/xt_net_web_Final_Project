@@ -4,11 +4,12 @@
 }
 
 .products {
-    background: linear-gradient(to top left, #ffbe93, #f3ff84);
+    background: linear-gradient(to top left, #ffd95e, #f3ff84);
+    color: #000000;
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
-    text-align: center;
+    text-align: left;
     float: left;
     width: 200px;
     height: 200px;
@@ -19,8 +20,10 @@
 }
 
 .products ol {
-        font-weight: bold;
-    }
+    text-align: center;    
+    font-weight: bold;
+    margin-bottom: 60px;
+}
 
 .products ul {
     margin: 1px;
@@ -33,6 +36,13 @@
 
 .productsAvatar {
     float: left;
+    width: 80px;
+    height: 80px;
+}
+
+.productsAvatar img {
+    width: 80px;
+    height: 80px;
 }
 
 .changeImg {
@@ -42,7 +52,6 @@
 }
 
 .changeButton {
-    background-color: #a8d9fc;
     width: 100px;
     border: 2px solid #412f00;
     border-radius: 5px;
@@ -50,9 +59,6 @@
 }
 
 .totalCalorific {
-    background-color: #ffd037;
-    border: 1px solid black;
-    border-radius: 5px;
     padding: 5px;
     text-align: center;
     margin-left: 25%;

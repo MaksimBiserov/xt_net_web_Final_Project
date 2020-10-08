@@ -93,6 +93,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Images\change.png" />
+    <Content Include="Images\chart.png" />
+    <Content Include="Images\FaceSite.jpg" />
     <Content Include="Images\plus.png" />
     <Content Include="Images\restaurant.png" />
     <Content Include="Images\search.png" />

@@ -2,9 +2,29 @@
 .container {
     position: absolute;
     right: 10px;
-    border: 2px solid #111111;
-    border-radius: 5px;
     width: 80%;
     margin-bottom: 20px;
     top: 170px;
+    text-align: center;
+}
+
+.chart {
+    position: absolute;
+    margin: 0;
+    padding: 5px;
+    font-family: sans-serif;
+    margin-left: 25%;
+    background-color: #cd79ff;
+    border-radius: 3px;
+}
+
+.chart a {
+    text-decoration: none;
+    color: #0b0517;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.chart img {
+    margin: 5px;
 }

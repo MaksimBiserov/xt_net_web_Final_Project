@@ -8,16 +8,23 @@
 }
 
 .searchInput {
-    border: 1px solid #000000;
+    border: 2px solid #000000;
     font-size: 16px;
-    border-radius: 5px;
+    font-weight: bold;
+    border-radius: 3px;
     width: 250px;
     height: 30px;
+    margin-right: 3px;
+}
+
+.searchButton {
+    border: 2px solid #000000;
+    font-weight: bold;
+    border-radius: 3px;
 }
 
 .searchString {
     width: 350px;
-    background-color: #d3d3d3;
     padding: 10px;
     border-radius: 5px;
     border: 0px;

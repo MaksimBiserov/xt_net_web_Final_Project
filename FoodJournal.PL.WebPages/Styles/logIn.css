@@ -22,20 +22,21 @@
 }
 
 .loginButton {
-    background-color: #9cff39;
+    background-color: #ffd300;
     border: none;
     border-radius: 5px;
     padding: 10px;
     padding-left: 30px;
     padding-right: 30px;
     text-align: center;
+    font-weight: bold;
     display: inline-block;
     font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
 }
 
 .loginButton a {
+    color: #000000;
     text-decoration: none;
 }
 
@@ -49,16 +50,18 @@
 }
 
 .guest {
-    background-color: #9cff39;
+    background-color: #ffd300;
     border: none;
     border-radius: 5px;
-    color: #210000;
     padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.guest a {
+    text-decoration: none;
+    color: #000000;
 }

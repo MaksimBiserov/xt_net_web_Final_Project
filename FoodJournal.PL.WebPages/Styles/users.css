@@ -1,4 +1,8 @@
 ﻿
+body {
+    font-family: sans-serif;
+}
+
 .users {
     background-color: #a8d9fc;
     margin: 5px;
@@ -28,13 +32,12 @@
 }
 
 .viewUsers {
-    background-color: #1ac39f;
+    background-color: #ff6d00;
     border: none;
     border-radius: 5px;
     padding: 10px;
     text-align: center;
     display: inline-block;
-    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     float: right;
@@ -42,4 +45,6 @@
 
 .viewUsers a {
     text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
 }

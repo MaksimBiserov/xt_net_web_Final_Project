@@ -16,7 +16,7 @@
             <div class="searchField">
                 <div class="searchString">
                     <input class="searchInput" name="Search" placeholder="Search" />
-                    <input type="submit" value="Search">
+                    <input class="searchButton" type="submit" value="Search">
                 </div>
             </div>
         }
@@ -30,8 +30,8 @@
                 <a href="~/Pages/AdminPages/AddProductToBase.cshtml">+</a>
             </div>
 
-            <div class="search">
-                <a href="~/Pages/AdminPages/ChartCategories.cshtml">Chart categories</a>
+            <div class="chart">
+                <a href="~/Pages/AdminPages/ChartCategories.cshtml"><div><img src="~/Images/chart.png"></div>Chart categories</a>
             </div>
 
             <div class="viewUsers">
@@ -125,7 +125,8 @@
 
         else
         {
-            <div class="guest">Sorry, application isn't available for guests!</div>
+            <div class="loginField">Sorry, application isn't available for guests!</div>
+            <br>
             <div class="guest">
                 <a href="~/Pages/Registration.cshtml">Registration</a>
             </div>

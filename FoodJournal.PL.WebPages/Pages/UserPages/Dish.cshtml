@@ -18,26 +18,30 @@
 
     <div class="container">
 
-        <div class="search">
-            <a href="~/Pages/UserPages/ChartDish.cshtml">Chart products and calorific values</a>
+        <div class="chart">
+            <a href="~/Pages/UserPages/ChartDish.cshtml">
+                <div><img src="~/Images/chart.png"></div>
+                Chart products and calorific values
+            </a>
         </div>
 
         @foreach (var product in dishBLL.GetAll().ToList())
         {
             double elementCalorificSum = dishBLL.GetCalorificSumElements(product.Calorific, product.NetMass);
 
-            <div class="users">
-                <ol>@product.Name</ol>
-                <ul>
-                    <li>Calorific,  kcal: @product.Calorific</li>
-                    <li>Net Mass, g: @product.NetMass</li>
-                    <li>Total calorific, kcal: @elementCalorificSum</li>
-                </ul>
+            <div class="productsCont">
+                <div class="users">
+                    <ol>@product.Name</ol>
+                    <ul>
+                        <li>Calorific,  kcal: @product.Calorific</li>
+                        <li>Net Mass, g: @product.NetMass</li>
+                        <li>Total calorific, kcal: @elementCalorificSum</li>
+                    </ul>
 
-                <div>
-                    <a href="~/Pages/UserPages/DeleteDishElement.cshtml?id=@product.ID"><img src="~/Images/trash.png"></a>
+                    <div>
+                        <a href="~/Pages/UserPages/DeleteDishElement.cshtml?id=@product.ID"><img src="~/Images/trash.png"></a>
+                    </div>
                 </div>
-
             </div>
         }
 
